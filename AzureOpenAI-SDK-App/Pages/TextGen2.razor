@@ -8,10 +8,11 @@
 <h1 style="text-align:center;color:blue;font-family:'Comic Sans MS';font-weight:bold;">Azure OpenAI SDK - Text Generation</h1>
 <hr />
 <br />
-<div class="card" style="background-color:aliceblue;margin:15px;">
     <div class="card-header" style="text-align:center; background-color:blue">
         <label style="font-family:'Comic Sans MS'; color:white;font-size:x-large; font-weight:bold;">Sample is using Azure OpenAI GPT4 </label>
     </div>
+
+<div class="card" style="background-color:lightyellow;margin:5px;">
     <div class="card-body" style="text-align:left; background-color:lightgoldenrodyellow">
         <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">Ask your question: </label>
         <input style="width:50%" @bind=in_user_question />
@@ -22,6 +23,10 @@
         <br />
         <textarea readonly="readonly" style="width:80%; height:200px" @bind="result_text"></textarea>
     </div>
+    <br />
+</div>
+
+<div class="card" style="background-color:aliceblue; margin:5px;">
     <div class="card-header" style="text-align:left; background-color:lightsteelblue">
         <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">System Prompt Section (Optional)</label>
     </div>
@@ -58,7 +63,7 @@
                 <td><input @bind=in_NucleusSamplingFactor /></td>
             </tr>
         </table>
-        
+
     </div>
 </div>
 

@@ -127,21 +127,18 @@
     {
         //used to call the chat completion SDK to generate text based on the prompt
 
+        //temp display text
         result_text = "...Generating Text...";
         try
         {
             if (options.Messages.Count >= 1)
             {
                 UseAzure = true;
-                if (UseAzure)
-                {
-                    client = new OpenAIClient(new Uri(AzureOpenAIUrlGPT), new AzureKeyCredential(SecretKeyGPT));
-                }
-                else
-                {
-                    client = new OpenAIClient(SecretKey);
-                    current_model = "gpt-3.5-turbo";
-                }
+
+                //create new instance of the Azure OpenAI client
+                client = new OpenAIClient(new Uri(AzureOpenAIUrlGPT), new AzureKeyCredential(SecretKeyGPT));
+
+                // request from the Azure OpenAI resource and await results 
                 var response = await client.GetChatCompletionsAsync(current_model, options);
                 ChatCompletions completions = response.Value;
 
@@ -163,7 +160,8 @@
             result_text = ex.Message;
             return result_text;
         }
-    }
+    }  
+
 
     #endregion
 

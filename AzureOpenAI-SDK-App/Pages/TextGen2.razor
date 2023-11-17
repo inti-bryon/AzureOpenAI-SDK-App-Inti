@@ -12,6 +12,21 @@
     <div class="card-header" style="text-align:center; background-color:blue">
         <label style="font-family:'Comic Sans MS'; color:white;font-size:x-large; font-weight:bold;">Sample is using GPT4 </label>
     </div>
+
+
+    <div class="card-header" style="text-align:left; background-color:darkgoldenrod">
+        <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">Question Section</label>
+    </div>
+    <div class="card-body" style="text-align:left; background-color:lightgoldenrodyellow">
+        <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">Ask your question: </label>
+        <input style="width:500px" @bind=in_user_question />
+        <button class="btn btn-primary" @onclick="RunModel">Send...</button>
+    </div>
+    <div class="card-footer" style="text-align:left;background-color:lightyellow">
+        <label style="color:blue;font-family:'Comic Sans MS';font-size:medium; font-weight:bold;">Results: @reason_finish</label>
+        <br />
+        <textarea readonly="readonly" style="width:80%; height:200px" @bind="result_text"></textarea>
+    </div>
     <div class="card-header" style="text-align:left; background-color:lightsteelblue">
         <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">System Prompt Section (Optional)</label>
     </div>
@@ -49,19 +64,6 @@
             </tr>
         </table>
         
-    </div>
-    <div class="card-header" style="text-align:left; background-color:darkgoldenrod">
-        <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">Question Section</label>
-    </div>
-    <div class="card-body" style="text-align:left; background-color:lightgoldenrodyellow">
-        <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">Ask your question: </label>
-        <input style="width:500px" @bind=in_user_question />
-        <button class="btn btn-primary" @onclick="RunModel">Send...</button>
-    </div>
-    <div class="card-footer" style="text-align:left;background-color:lightyellow">
-        <label style="color:blue;font-family:'Comic Sans MS';font-size:medium; font-weight:bold;">Results: @reason_finish</label>
-        <br />
-        <textarea readonly="readonly" style="width:80%; height:200px" @bind="result_text"></textarea>
     </div>
 </div>
 
@@ -198,6 +200,9 @@
                 //display the results and the reason for finishing
                 reason_finish = $"\t[Finish Reason: {completions.Choices[0].FinishReason.ToString()}]";
                 result_text = $"{completions.Choices[0].Message.Content.ToString()}";
+
+                //clear user input
+                options.Messages.Clear();
 
                 return result_text;
             }

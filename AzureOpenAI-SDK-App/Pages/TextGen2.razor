@@ -28,7 +28,7 @@
 
 <div class="card" style="background-color:aliceblue; margin:5px;">
     <div class="card-header" style="text-align:left; background-color:lightsteelblue">
-        <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">System Prompt Section (Optional)</label>
+        <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">Prompt Engineering Section (Optional)</label>
     </div>
     <div class="card-body" style="text-align:left;">
         <div class="card-title"><label style="font-family:'Comic Sans MS'; color:blue;font-size:large">Add a role...</label></div>
@@ -216,6 +216,10 @@
         {
             result_text = ex.Message;
             return result_text;
+        }
+        finally
+        {
+            in_user_question = string.Empty;
         }
     }
 

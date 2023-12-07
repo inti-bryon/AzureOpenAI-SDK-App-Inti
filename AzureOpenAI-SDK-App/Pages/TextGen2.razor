@@ -37,7 +37,7 @@
             <option value="system">system</option>
             <option value="assistant">assistant</option>
             <option value="user">user</option>
-            <option value="function">function</option>
+     @*       <option value="function">function</option>*@
         </select>
         <br />
         <div class="card-title"><label style="font-family:'Comic Sans MS'; color:blue;font-size:large">Add content... </label></div>
@@ -48,8 +48,25 @@
         <button class="btn btn-warning" @onclick="ClearAll">Clear All</button>
     </div>
     <div class="card-header" style="text-align:left;">
-        <textarea readonly="readonly" type="text" @bind="current_msgs_string" style="width:80%; height:100px;" />
-        <table class="table table-bordered" style="width:80%;">
+        <textarea readonly="readonly" type="text" @bind="current_msgs_string" style="width:80%" />
+        <div class="table-bordered">
+            <div>
+                <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">model: </label>
+                <input @bind=current_model />
+                <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">max tokens: </label>
+                <input @bind=in_max_tokens />
+            </div>
+        </div>
+        <div>
+            <div>
+                <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">temperature: </label>
+                <input @bind=in_temperature />
+                <label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">nucleus sampling factor: </label>
+                <input @bind=in_NucleusSamplingFactor />
+            </div>
+        </div>
+
+@*        <table class="table table-bordered" >
             <tr>
                 <td><label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">model: </label></td>
                 <td><input @bind=current_model /></td>
@@ -62,7 +79,7 @@
                 <td><label style="font-size:medium;color:blue;font-family:'Comic Sans MS';">nucleus sampling factor: </label></td>
                 <td><input @bind=in_NucleusSamplingFactor /></td>
             </tr>
-        </table>
+        </table>*@
 
     </div>
 </div>

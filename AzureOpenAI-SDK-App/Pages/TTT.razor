@@ -1,0 +1,65 @@
+﻿@page "/TTT"
+@using Azure;
+@using Azure.AI.OpenAI;
+@using static AzureOpenAI_SDK_App.KeyManager;
+
+<style>
+    card {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .button {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        overflow: hidden;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+</style>
+
+<h1>Tic Tac Toe...</h1>
+<br />
+
+<div style="width:475px; height:475px;background-image: url('https://th.bing.com/th/id/OIP.Ulpj4iLlcFRk_0p9HqD2gwAAAA?rs=1&pid=ImgDetMain')">
+    <div style="text-align:center; vertical-align:central;">
+            <div class="row">
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            </div>
+
+            <div class="row">
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            </div>
+
+            <div class="row">
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+            </div>
+    </div>
+</div>
+
+@code {
+
+}

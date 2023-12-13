@@ -35,31 +35,866 @@
         }
 </style>
 
-<h1>Tic Tac Toe...</h1>
-<br />
+<div class="card">
+    <div class="card-header" style="background-color:#BBDDE6;">
+        <h1 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="card-title">Tic Tac Toe</h1>
+        <h3 style="color:red;">@game_warning</h3>
+    </div>
+    <div class="card-body" style="background-color:#D3E8ED; font-family:'Comic Sans MS'; color:darkslateblue">
+        <div class="row">
+            <label style="width:30%; text-align:right;" for="playerName">Player Name:</label>
+            <input style="width:30%; text-align:left;" type="text" @bind=player_name placeholder="Enter your name">
 
-<div style="width:475px; height:475px;background-image: url('https://th.bing.com/th/id/OIP.Ulpj4iLlcFRk_0p9HqD2gwAAAA?rs=1&pid=ImgDetMain')">
-    <div style="text-align:center; vertical-align:central;">
-            <div class="row">
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            </div>
+        </div>
+        <div class="row">
+            <label style="width:30%; text-align:right;" for="difficultyLevel">Difficulty Level: [@game_dificulty]</label>
+            <select @onchange=DiffilcultyChanged style="width:30%; text-align:left;" id="gameType">
+                <option selected value="Easy">Easy</option>
+                <option value="Normal">Normal</option>
+                <option value="Hard">Hard</option>
+            </select>
 
-            <div class="row">
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            </div>
+        </div>
+    </div>
+    <div class="card-footer" style="background-color:#D3E8ED;">
+        <div class="@MainBoardClass" id="MainBoard" style="width:475px; height:475px; background-image: url('https://th.bing.com/th/id/OIP.Ulpj4iLlcFRk_0p9HqD2gwAAAA?rs=1&pid=ImgDetMain')">
+            <div style="text-align:center; vertical-align:central;">
+                <div class="row">
+                    <button class="button" style="margin:30px; background-image: url(@Grid1)" @onclick=Grid1Clicked></button>
+                    <button class="button" style="margin:30px; background-image: url(@Grid2)" @onclick=Grid2Clicked></button>
+                    <button class="button" style="margin:30px; background-image: url(@Grid3)" @onclick=Grid3Clicked></button>
+                </div>
 
-            <div class="row">
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
-            <button class="button" style="margin:30px; background-image: url('https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png')"></button>
+                <div class="row">
+                    <button class="button" style="margin:30px; background-image: url(@Grid4)" @onclick=Grid4Clicked></button>
+                    <button class="button" style="margin:30px; background-image: url(@Grid5)" @onclick=Grid5Clicked></button>
+                    <button class="button" style="margin:30px; background-image: url(@Grid6)" @onclick=Grid6Clicked></button>
+                </div>
+
+                <div class="row">
+                    <button class="button" style="margin:30px; background-image: url(@Grid7)" @onclick=Grid7Clicked></button>
+                    <button class="button" style="margin:30px; background-image: url(@Grid8)" @onclick=Grid8Clicked></button>
+                    <button class="button" style="margin:30px; background-image: url(@Grid9)" @onclick=Grid9Clicked></button>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="card-footer" style="background-color:#BBDDE6;">
+        <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=StartGame>Start Game</button>
+        <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=ResetGame>Reset Game</button>
+        <h3 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="card-title">Total Score: @player_name has @player_score.ToString() and CPU has @cpu_score...</h3>
     </div>
 </div>
 
 @code {
+    #region Variables and Defaults
 
+    //class variables
+    OpenAIClient client;
+    private ChatMessage current_msgs { get; set; } = new ChatMessage();
+    // Set the options for the chat completion
+    private ChatCompletionsOptions options = new ChatCompletionsOptions();
+
+    //defaults
+    private string current_model { get; set; } = AzureOpenAIGPTModel;
+    private float in_temperature { get; set; } = 0.1f;
+    private int in_max_tokens { get; set; } = 1000;
+    private float in_NucleusSamplingFactor { get; set; } = 0.95f;
+
+
+    //private string happy_face_image { get; set; } = "https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png";
+    private string x_image { get; set; } = "https://th.bing.com/th/id/R.7f2eabac248cd655d617a0f00c011fe6?rik=WlG%2bMNK%2fAEELVA&pid=ImgRaw&r=0";
+    private string o_image { get; set; } = "https://pngimg.com/uploads/letter_o/letter_o_PNG39.png";
+
+    //ttt specific variable
+    private string player_name { get; set; } = string.Empty;
+    private string game_dificulty { get; set; } = "Easy";
+    private bool player_turn1 = true;
+    private bool player2_cpu = true;
+    private List<int> called_nums = new List<int>();
+    private List<int> player_called_nums = new List<int>();
+    private List<int> cpu_called_nums = new List<int>();
+    private char[,] new_game;
+    private string MainBoardClass = "visually-hidden";
+    private int player_score = 0;
+    private int cpu_score = 0;
+    private string game_warning { get; set; } = string.Empty;
+    private char ai_random_num { get; set; } = '0';
+
+    //for 9 buttons
+    private string Grid1 { get; set; } = string.Empty;
+    private string Grid2 { get; set; } = string.Empty;
+    private string Grid3 { get; set; } = string.Empty;
+    private string Grid4 { get; set; } = string.Empty;
+    private string Grid5 { get; set; } = string.Empty;
+    private string Grid6 { get; set; } = string.Empty;
+    private string Grid7 { get; set; } = string.Empty;
+    private string Grid8 { get; set; } = string.Empty;
+    private string Grid9 { get; set; } = string.Empty;
+
+
+    #endregion
+
+    #region Methods
+    private void DiffilcultyChanged(ChangeEventArgs e)
+    {
+        //capture the selected role
+        game_dificulty = e.Value.ToString();
+    }
+
+    private void StartGame()
+    {
+        game_warning = string.Empty;
+        if (string.IsNullOrEmpty(player_name))
+        {
+            game_warning = "Please enter your name to start the game...";
+            return;
+        }
+        else//play game 
+        {
+            MainBoardClass = string.Empty;
+            Grid1 = string.Empty;
+            Grid2 = string.Empty;
+            Grid3 = string.Empty;
+            Grid4 = string.Empty;
+            Grid5 = string.Empty;
+            Grid6 = string.Empty;
+            Grid7 = string.Empty;
+            Grid8 = string.Empty;
+            Grid9 = string.Empty;
+            player_turn1 = true;
+            called_nums.Clear();
+            player_called_nums.Clear();
+            cpu_called_nums.Clear();
+            new_game = new char[,] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
+            player_score = 0;
+            cpu_score = 0;
+        }
+
+    }
+    private void ResetGame()
+    {
+        //reset the game
+
+        player_name = string.Empty;
+        game_dificulty = "Easy";
+        MainBoardClass = "visually-hidden";
+        Grid1 = string.Empty;
+        Grid2 = string.Empty;
+        Grid3 = string.Empty;
+        Grid4 = string.Empty;
+        Grid5 = string.Empty;
+        Grid6 = string.Empty;
+        Grid7 = string.Empty;
+        Grid8 = string.Empty;
+        Grid9 = string.Empty;
+        player_turn1 = true;
+        called_nums.Clear();
+        player_called_nums.Clear();
+        cpu_called_nums.Clear();
+        new_game = new char[,] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
+        player_score = 0;
+        cpu_score = 0;
+
+
+        //msg_role = string.Empty;
+        //msg_content = string.Empty;
+        //current_msgs_string = string.Empty;
+        //reason_finish = string.Empty;
+        //result_text = string.Empty;
+        //in_user_question = string.Empty;
+        //all_system_prompts.Clear();
+    }
+
+    public bool CheckWin(char[,] a_game)
+    {
+        bool did_win = false;
+
+        if (a_game[0, 0] == a_game[0, 1] && a_game[0, 1] == a_game[0, 2] && a_game[0, 0] == a_game[0, 2])
+        {
+            did_win = true;
+        }
+        else if (a_game[0, 0] == a_game[1, 0] && a_game[1, 0] == a_game[2, 0] && a_game[0, 0] == a_game[2, 0])
+        {
+            did_win = true;
+        }
+        else if (a_game[0, 0] == a_game[1, 1] && a_game[1, 1] == a_game[2, 2] && a_game[0, 0] == a_game[2, 2])
+        {
+            did_win = true;
+        }
+        else if (a_game[0, 1] == a_game[1, 1] && a_game[1, 1] == a_game[2, 1] && a_game[0, 1] == a_game[2, 1])
+        {
+            did_win = true;
+        }
+        else if (a_game[0, 2] == a_game[1, 2] && a_game[1, 2] == a_game[2, 2] && a_game[0, 2] == a_game[2, 2])
+        {
+            did_win = true;
+        }
+        else if (a_game[0, 2] == a_game[1, 1] && a_game[1, 1] == a_game[2, 0] && a_game[0, 2] == a_game[2, 0])
+        {
+            did_win = true;
+        }
+        else if (a_game[1, 0] == a_game[1, 1] && a_game[1, 1] == a_game[1, 2] && a_game[1, 0] == a_game[1, 2])
+        {
+            did_win = true;
+        }
+        else if (a_game[2, 0] == a_game[2, 1] && a_game[2, 1] == a_game[2, 2] && a_game[2, 0] == a_game[2, 2])
+        {
+            did_win = true;
+        }
+
+        return did_win;
+    }
+
+    public bool CheckTie(char[,] a_game)
+    {
+        bool is_tie = true;
+
+        List<char> nums_check = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                char tie_char = a_game[i, j];
+                if (nums_check.Contains(a_game[i, j])) is_tie = false;
+            }
+        }
+
+        return is_tie;
+    }
+
+    public void ComputerTurn(char a_num)
+    {
+        switch (a_num)
+        {
+            case '1':
+                {
+                    //player 2
+                    called_nums.Add(1);
+                    cpu_called_nums.Add(1);
+                    new_game[0, 0] = '@';
+                    Grid1 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    //else
+                    //{
+                    //    game_warning = $"Ok... {player_name}, you are up next...";
+                    //}
+                }
+                break;
+            case '2':
+                {
+                    //player 2
+                    called_nums.Add(2);
+                    cpu_called_nums.Add(2);
+                    new_game[0, 1] = '@';
+                    Grid2 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '3':
+                {
+                    //player 2
+                    called_nums.Add(3);
+                    cpu_called_nums.Add(3);
+                    new_game[0, 2] = '@';
+                    Grid3 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '4':
+                {
+                    //player 2
+                    called_nums.Add(4);
+                    cpu_called_nums.Add(4);
+                    new_game[1, 0] = '@';
+                    Grid4 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '5':
+                {
+                    //player 2
+                    called_nums.Add(5);
+                    cpu_called_nums.Add(5);
+                    new_game[1, 1] = '@';
+                    Grid5 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '6':
+                {
+                    //player 2
+                    called_nums.Add(6);
+                    cpu_called_nums.Add(6);
+
+                    new_game[1, 2] = '@';
+                    Grid6 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '7':
+                {
+                    //player 2
+                    called_nums.Add(7);
+                    cpu_called_nums.Add(7);
+                    new_game[2, 0] = '@';
+                    Grid7 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '8':
+                {
+                    //player 2
+                    called_nums.Add(8);
+                    cpu_called_nums.Add(8);
+                    new_game[2, 1] = '@';
+                    Grid8 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+            case '9':
+                {
+                    //player 2
+                    called_nums.Add(9);
+                    cpu_called_nums.Add(9);
+                    new_game[2, 2] = '@';
+                    Grid9 = o_image;
+                    player_turn1 = true;
+                    if (CheckWin(new_game))
+                    {
+                        game_warning = $"Congratulations {player_name}!! You just WON!!";
+                    }
+                    else if (CheckTie(new_game))
+                    {
+                        game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                    }
+                    else
+                    {
+                        game_warning = $"Ok... {player_name}, you are up next...";
+                    }
+                }
+                break;
+        }
+    }
+
+    private async Task Grid1Clicked()
+    {
+        //Grid1 = x_image;
+        called_nums.Add(1);
+        player_called_nums.Add(1);
+        if (player_turn1 && new_game[0, 0] == '1')
+        {
+            //player 1
+            new_game[0, 0] = 'X';
+            Grid1 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid2Clicked()
+    {
+        called_nums.Add(2);
+        player_called_nums.Add(2);
+        if (player_turn1 && new_game[0, 1] == '2')
+        {
+            //player 1
+            new_game[0, 1] = 'X';
+            Grid2 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid3Clicked()
+    {
+        called_nums.Add(3);
+        player_called_nums.Add(3);
+        if (player_turn1 && new_game[0, 2] == '3')
+        {
+            //player 1
+            new_game[0, 2] = 'X';
+            Grid3 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid4Clicked()
+    {
+        called_nums.Add(4);
+        player_called_nums.Add(4);
+        if (player_turn1 && new_game[1, 0] == '4')
+        {
+            //player 1
+            new_game[1, 0] = 'X';
+            Grid4 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid5Clicked()
+    {
+        called_nums.Add(5);
+        player_called_nums.Add(5);
+        if (player_turn1 && new_game[1, 1] == '5')
+        {
+            //player 1
+            new_game[1, 1] = 'X';
+            Grid5 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid6Clicked()
+    {
+        called_nums.Add(6);
+        player_called_nums.Add(6);
+        if (player_turn1 && new_game[1, 2] == '6')
+        {
+            //player 1
+            new_game[1, 2] = 'X';
+            Grid6 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid7Clicked()
+    {
+        called_nums.Add(7);
+        player_called_nums.Add(7);
+        if (player_turn1 && new_game[2, 0] == '7')
+        {
+            //player 1
+            new_game[2, 0] = 'X';
+            Grid7 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid8Clicked()
+    {
+        called_nums.Add(8);
+        player_called_nums.Add(8);
+        if (player_turn1 && new_game[2, 1] == '8')
+        {
+            //player 1
+            new_game[2, 1] = 'X';
+            Grid8 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private async Task Grid9Clicked()
+    {
+        called_nums.Add(9);
+        player_called_nums.Add(9);
+        if (player_turn1 && new_game[2, 2] == '9')
+        {
+            //player 1
+            new_game[2, 2] = 'X';
+            Grid9 = x_image;
+            player_turn1 = false;
+            if (CheckWin(new_game))
+            {
+                game_warning = $"Congratulations {player_name}!! You just WON!!";
+            }
+            else if (CheckTie(new_game))
+            {
+                game_warning = "Tie game no one wins :) :D :P :) :D :P";
+            }
+            else
+            {
+                //check for cpu
+                if (player2_cpu)
+                {
+                    while (true)
+                    {
+                        await GetNumberFromAI();
+                        if (!called_nums.Contains(ai_random_num))
+                        {
+                            //call it
+                            ComputerTurn(ai_random_num);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    #endregion
+
+
+
+    #region Azure OpenAI Methods
+    public async Task GetNumberFromAI()
+    {
+        ////using random number generator
+        //var rand = new Random();
+        //int randNum = rand.Next(1, 10);
+        //ai_random_num = char.Parse(randNum.ToString());
+
+
+        //////////////////        //using openai
+
+        // Set the prompt
+        //get the difficulty level
+        string system_prompt = "You are playing tic tac toe on a regular 3x3 grid, numbered 1 through 9.";
+        switch(game_dificulty)
+        {
+            case "Easy":
+                system_prompt += $"You are an easy going player, who let's everyone win."; 
+                break;
+            case "Normal":
+                system_prompt += $"You are an average player, who wins some and loses some.";
+                break;
+            case "Hard":
+                system_prompt += $"You are a tough and aggressive player, who plays at an expert level and hates to loose.";
+                break;
+            default:
+                system_prompt += $"You are an easy going player, who let's everyone win.";
+                break;
+        }
+
+        //system prompt logic
+        options.Messages.Add(new ChatMessage() { Role = "system", Content = system_prompt });
+        //system prompt user samples
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = "I already have an X on 5 and 2. You have an O on 1 and 3. where would you put your next O?" });
+        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "4" });
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = "I already have an X on 1. You don't have any Os on the board. where would you put your next O?" });
+        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "5" });
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = "I already have an X on 3 and 6. You have an O on 2. where would you put your next O?" });
+        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "7" });
+
+        //numbers called
+        string called_nums_propmt = "I have already called the following numbers: ";
+        foreach (int num in player_called_nums)
+        {
+            called_nums_propmt += $"{num}, ";
+        }
+        if (cpu_called_nums.Count > 0)
+        {
+            called_nums_propmt += "and you have already called: ";
+            foreach (int num in cpu_called_nums)
+            {
+                called_nums_propmt += $"{num}, ";
+            }
+            called_nums_propmt += "where would you put your next O?";
+        }
+        else
+        {
+            called_nums_propmt += "and you have not called any numbers yet.where would you put your first O?";
+        }
+
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = called_nums_propmt });
+
+        client = new OpenAIClient(new Uri(AzureOpenAIUrlGPT), new AzureKeyCredential(SecretKeyGPT));
+        var response = await client.GetChatCompletionsAsync(current_model, options);
+        ChatCompletions completions = response.Value;
+
+
+        ai_random_num = char.Parse(completions.Choices[0].Message.Content.ToString());
+    }
+    #endregion
 }

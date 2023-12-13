@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="card-footer" style="background-color:#D3E8ED;">
-        <div class="@MainBoardClass" id="MainBoard" style="width:475px; height:475px; background-image: url('https://th.bing.com/th/id/OIP.Ulpj4iLlcFRk_0p9HqD2gwAAAA?rs=1&pid=ImgDetMain')">
+        <div class="@MainBoardClass" style="width:475px; height:475px; background-image: url('https://th.bing.com/th/id/OIP.Ulpj4iLlcFRk_0p9HqD2gwAAAA?rs=1&pid=ImgDetMain')">
             <div style="text-align:center; vertical-align:central;">
                 <div class="row">
                     <button class="button" style="margin:30px; background-image: url(@Grid1)" @onclick=Grid1Clicked></button>
@@ -82,7 +82,7 @@
     <div class="card-footer" style="background-color:#BBDDE6;">
         <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=StartGame>Start Game</button>
         <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=ResetGame>Reset Game</button>
-        <h3 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="card-title">Total Score: @player_name has @player_score.ToString() and CPU has @cpu_score...</h3>
+        <h3 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="@MainBoardClass">Total Score: @player_name has @player_score.ToString() and CPU has @cpu_score...</h3>
     </div>
 </div>
 
@@ -172,6 +172,7 @@
         }
 
     }
+
     private void ResetGame()
     {
         //reset the game
@@ -195,15 +196,6 @@
         new_game = new char[,] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
         player_score = 0;
         cpu_score = 0;
-
-
-        //msg_role = string.Empty;
-        //msg_content = string.Empty;
-        //current_msgs_string = string.Empty;
-        //reason_finish = string.Empty;
-        //result_text = string.Empty;
-        //in_user_question = string.Empty;
-        //all_system_prompts.Clear();
     }
 
     public bool CheckWin(char[,] a_game)
@@ -850,7 +842,7 @@
                 system_prompt += $"You are an average player, who wins some and loses some.";
                 break;
             case "Hard":
-                system_prompt += $"You are a tough and aggressive player, who plays at an expert level and hates to loose.";
+                system_prompt += $"You are a tough, aggressive, professional player, you try to always block the oponenet from matching 3 in a row and look for ways to win.";
                 break;
             default:
                 system_prompt += $"You are an easy going player, who let's everyone win.";

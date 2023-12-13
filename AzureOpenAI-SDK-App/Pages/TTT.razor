@@ -169,8 +169,8 @@
             player_called_nums.Clear();
             cpu_called_nums.Clear();
             new_game = new char[,] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
-            player_score = 0;
-            cpu_score = 0;
+            //player_score = 0;
+            //cpu_score = 0;
         }
 
     }
@@ -273,6 +273,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -291,6 +292,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -309,6 +311,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -327,6 +330,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -345,6 +349,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -364,6 +369,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -382,6 +388,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -400,6 +407,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -418,6 +426,7 @@
                     if (CheckWin(new_game))
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
+                        cpu_score++;
                     }
                     else if (CheckTie(new_game))
                     {
@@ -443,6 +452,7 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+
             }
             else if (CheckTie(new_game))
             {
@@ -482,6 +492,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -521,6 +532,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -560,6 +572,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -599,6 +612,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -638,6 +652,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -677,6 +692,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -716,6 +732,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -755,6 +772,7 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                player_score++;
             }
             else if (CheckTie(new_game))
             {
@@ -786,6 +804,7 @@
 
 
     #region Azure OpenAI Methods
+
     public async Task GetNumberFromAI()
     {
         // Set the prompt using OpenAI
@@ -847,5 +866,6 @@
         //get answer and parse to char
         ai_random_num = char.Parse(completions.Choices[0].Message.Content.ToString());
     }
+    
     #endregion
 }

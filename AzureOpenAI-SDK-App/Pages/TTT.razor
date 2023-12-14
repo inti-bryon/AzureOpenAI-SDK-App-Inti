@@ -82,7 +82,9 @@
         </div>
     </div>
     <div class="card-footer" style="background-color:#BBDDE6;">
-        <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=StartGame>Start Game</button>
+@*        <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=StartGame>Start Player</button>
+        <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=StartGameCPU>Start CPU</button>*@
+        <button class="btn btn-primary" style="width:100px; margin:10px;" @onclick=DecideWhoGoesFirst>Start Game</button>
         <button class="btn btn-danger" style="width:100px; margin:10px;" @onclick=ResetGame>Reset Game</button>
         <button class="btn btn-warning " style="width:110px; margin:10px;" @onclick=PromptEngineeringToggle>Prompt Section</button>
         <h3 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="@MainBoardClass">Total Score: @player_name has @player_score.ToString() and CPU has @cpu_score...</h3>
@@ -156,9 +158,71 @@
         game_dificulty = e.Value.ToString();
     }
 
+    private async Task StartGameCPU()
+    {
+        //game_warning = string.Empty;
+        if (string.IsNullOrEmpty(player_name))
+        {
+            game_warning = "Please enter your name to start the game...";
+            return;
+        }
+        else//play game
+        {
+            MainBoardClass = string.Empty;
+            Grid1 = string.Empty;
+            Grid2 = string.Empty;
+            Grid3 = string.Empty;
+            Grid4 = string.Empty;
+            Grid5 = string.Empty;
+            Grid6 = string.Empty;
+            Grid7 = string.Empty;
+            Grid8 = string.Empty;
+            Grid9 = string.Empty;
+            player_turn1 = true;
+            called_nums.Clear();
+            player_called_nums.Clear();
+            cpu_called_nums.Clear();
+            new_game = new char[,] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
+            //player_score = 0;
+            //cpu_score = 0;
+            display_prompt = string.Empty;
+
+            //initiate the first call by the cpu
+            while (true)
+            {
+                await GetNumberFromAI();
+                if (!called_nums.Contains(ai_random_num))
+                {
+                    //call it
+                    ComputerTurn(ai_random_num);
+                    break;
+                }
+            }
+        }
+    }
+
+    private async Task DecideWhoGoesFirst()
+    {
+        //decide who goes first
+        Random rnd = new Random();
+        int num = rnd.Next(1, 3);
+        if (num == 1)
+        {
+
+            game_warning = $"Congratulations {player_name}!! You get to go first!!";
+            StartGame();
+        }
+        else
+        {
+
+            game_warning = $"Ohh Nooo {player_name}!! The CPU goes first!!";
+            await StartGameCPU();
+        }
+    }
+
     private void StartGame()
     {
-        game_warning = string.Empty;
+        //game_warning = string.Empty;
         if (string.IsNullOrEmpty(player_name))
         {
             game_warning = "Please enter your name to start the game...";
@@ -831,7 +895,7 @@
             prompt_engineering_section = "visually-hidden";
         }
         else if(prompt_engineering_section == "visually-hidden")
-{
+        {
             prompt_engineering_section = string.Empty;
         }
     }
@@ -841,20 +905,20 @@
         // Set the prompt using OpenAI
         ClearMessages();
         //get the difficulty level
-        string system_prompt = "You are a tic tac toe player using a regular 3x3 grid, numbered 1 through 9 where. You are using O and your opponent is using X.";
+        string system_prompt = "You are a tic tac toe player using a regular 3x3 playing board, numbered 1 through 9. In order to win you must get 3 of the same type in a row.";
         switch(game_dificulty)
         {
             case "Easy":
-                system_prompt += $"You are an easy going player who let's everyone win."; 
+                system_prompt += $"You are an easy going player who let's everyone win. "; 
                 break;
             case "Normal":
-                system_prompt += $"You are an average player. You will try to match three consecutive O in a row and win.";
+                system_prompt += $"You are an average player, but will try to win. ";
                 break;
             case "Hard":
-                system_prompt += $"You are a tough aggressive professional player. Analyze the current position of X and try to block them from winning. Look carefully at the current positions of the Os and try to connect 3 for the win.";
+                system_prompt += $"You are a tough aggressive professional player, who does not loose. You will try your best to win. ";
                 break;
             default:
-                system_prompt += $"You are an easy going player who let's everyone win.";
+                system_prompt += $"You are an average player, but will try to win. ";
                 break;
         }
 
@@ -869,23 +933,45 @@
         options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "7" });
 
         //prompt with called numbers
-        string called_nums_propmt = "I already have an X on ";
-        foreach (int num in player_called_nums)
-        {
-            called_nums_propmt += $"{num} and ";
-        }
+
+        //If there is already an O on 5 and 2 and an X on 1 and 9, where would you place the next O to win or gain the advantage?
+
+        string called_nums_propmt = string.Empty;
+
+        //cpu numbers called
         if (cpu_called_nums.Count > 0)
         {
-            called_nums_propmt += " You have an O on ";
+            called_nums_propmt += "If there is already an O on ";
             foreach (int num in cpu_called_nums)
             {
-                called_nums_propmt += $"{num} and ";
+                if (cpu_called_nums.Count >1)
+                {
+                    called_nums_propmt += $"{num} and ";
+                }
+                else
+                {
+                    called_nums_propmt += $"{num} ";
+                }
+               
             }
-            called_nums_propmt += " Where would you put your next O to win the game given the previous plays by X and O?";
+            //player numbers called
+            called_nums_propmt += " and an X on ";
+            foreach (int num in player_called_nums)
+            {
+                if(player_called_nums.Count > 1)
+                {
+                    called_nums_propmt += $"{num} and ";
+                }
+                else
+                {
+                    called_nums_propmt += $"{num} ";
+                }
+            }
+            called_nums_propmt += " where would you place the next O to win or gain the advantage? Please limit your response to a single digit number.";
         }
         else
         {
-            called_nums_propmt += " you have not called any numbers yet. Where would you put your first O?";
+            called_nums_propmt += "You have not called any numbers yet. Where would you put your first O? Please limit your response to a single digit number.";
         }
 
         options.Messages.Add(new ChatMessage() { Role = "user", Content = called_nums_propmt });

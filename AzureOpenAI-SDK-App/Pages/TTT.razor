@@ -3,6 +3,7 @@
 @using Azure.AI.OpenAI;
 @using static AzureOpenAI_SDK_App.KeyManager;
 
+#region Styles
 <style>
     card {
         display: flex;
@@ -33,7 +34,17 @@
         .button:hover {
             transform: scale(1.1);
         }
+
+    /* Some optional styling for demonstration purposes */
+    .disabled-button {
+        color: #777; /* Change color for disabled state */
+        cursor: not-allowed; /* Change cursor for disabled state */
+        opacity: 0.25; /* Change opacity for disabled state */
+
+    }
 </style>
+
+#endregion
 
 <div class="card">
     <div class="card-header" style="background-color:#BBDDE6;">
@@ -63,21 +74,21 @@
         <div class="@MainBoardClass" style="width:475px; height:475px; background-image: url('https://th.bing.com/th/id/OIP.Ulpj4iLlcFRk_0p9HqD2gwAAAA?rs=1&pid=ImgDetMain')">
             <div style="text-align:center; align-content:center; align-items:center;">
                 <div class="row">
-                    <button class="button" style="margin:30px; background-image: url(@Grid1)" @onclick=Grid1Clicked></button>
-                    <button class="button" style="margin:30px; background-image: url(@Grid2)" @onclick=Grid2Clicked></button>
-                    <button class="button" style="margin:30px; background-image: url(@Grid3)" @onclick=Grid3Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid1)" @onclick=Grid1Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid2)" @onclick=Grid2Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid3)" @onclick=Grid3Clicked></button>
                 </div>
 
                 <div class="row">
-                    <button class="button" style="margin:30px; background-image: url(@Grid4)" @onclick=Grid4Clicked></button>
-                    <button class="button" style="margin:30px; background-image: url(@Grid5)" @onclick=Grid5Clicked></button>
-                    <button class="button" style="margin:30px; background-image: url(@Grid6)" @onclick=Grid6Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid4)" @onclick=Grid4Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid5)" @onclick=Grid5Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid6)" @onclick=Grid6Clicked></button>
                 </div>
 
                 <div class="row">
-                    <button class="button" style="margin:30px; background-image: url(@Grid7)" @onclick=Grid7Clicked></button>
-                    <button class="button" style="margin:30px; background-image: url(@Grid8)" @onclick=Grid8Clicked></button>
-                    <button class="button" style="margin:30px; background-image: url(@Grid9)" @onclick=Grid9Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid7)" @onclick=Grid7Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid8)" @onclick=Grid8Clicked></button>
+                    <button class="button @button_enabled" style="margin:30px; background-image: url(@Grid9)" @onclick=Grid9Clicked></button>
                 </div>
             </div>
         </div>
@@ -137,6 +148,7 @@
     private int ai_random_num { get; set; } = '0';
     private string display_prompt { get; set; } = string.Empty;
     private string prompt_engineering_section { get; set; } = "visually-hidden";
+    private string button_enabled { get; set; } = string.Empty;
 
     //for 9 buttons
     private string Grid1 { get; set; } = string.Empty;
@@ -212,12 +224,14 @@
 
             game_warning = $"Congratulations {player_name}!! You get to go first!!";
             StartGame();
+            ToggleButtons(false);
         }
         else
         {
 
             game_warning = $"Ohh Nooo {player_name}!! The CPU goes first!!";
             await StartGameCPU();
+            ToggleButtons(false);
         }
     }
 
@@ -354,10 +368,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -373,10 +389,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -392,10 +410,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -411,10 +431,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -430,10 +452,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -450,10 +474,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -469,10 +495,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -488,10 +516,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -507,10 +537,12 @@
                     {
                         game_warning = $"Ohh Nooo {player_name}!! You just LOST!!";
                         cpu_score++;
+                        ToggleButtons(true);
                     }
                     else if (CheckTie(new_game))
                     {
                         game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                        ToggleButtons(true);
                     }
                 }
                 break;
@@ -532,11 +564,13 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
 
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -573,10 +607,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -612,11 +648,13 @@
             if (CheckWin(new_game))
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
+                ToggleButtons(true);
                 player_score++;
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -653,10 +691,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -693,10 +733,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -733,10 +775,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -773,10 +817,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -813,10 +859,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -853,10 +901,12 @@
             {
                 game_warning = $"Congratulations {player_name}!! You just WON!!";
                 player_score++;
+                ToggleButtons(true);
             }
             else if (CheckTie(new_game))
             {
                 game_warning = "Tie game no one wins :) :D :P :) :D :P";
+                ToggleButtons(true);
             }
             else
             {
@@ -876,6 +926,18 @@
 
                 }
             }
+        }
+    }
+
+    private void ToggleButtons(bool DisableButton)
+    {
+        if (DisableButton)
+        {
+            button_enabled = "disabled-button";
+        }
+        else
+        {
+            button_enabled = string.Empty;
         }
     }
 
@@ -905,7 +967,7 @@
         // Set the prompt using OpenAI
         ClearMessages();
         //get the difficulty level
-        string system_prompt = "You are a tic tac toe player using a regular 3x3 playing board, numbered 1 through 9. In order to win you must get 3 of the same type in a row.";
+        string system_prompt = "You are an assistant who is helping with the game of tic tac toe, using a regular 3x3 playing board, numbered 1 through 9. In order to win you must get 3 of the same type in a row.";
         switch(game_dificulty)
         {
             case "Easy":
@@ -925,12 +987,12 @@
         //system prompt logic
         options.Messages.Add(new ChatMessage() { Role = "system", Content = system_prompt });
         //system prompt user samples
-        options.Messages.Add(new ChatMessage() { Role = "user", Content = "I already have an X on 5 and 2. You have an O on 1 and 3. Where would you put your next O?" });
-        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "8" });
-        options.Messages.Add(new ChatMessage() { Role = "user", Content = "I already have an X on 1. You don't have any Os on the board. Where would you put your next O?" });
-        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "5" });
-        options.Messages.Add(new ChatMessage() { Role = "user", Content = "I already have an X on 3 and 6. You have an O on 1 and 4. Where would you put your next O?" });
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = "If there is already an O on 5 and an X on 9 and 3.  where would you place the next O to win or gain the advantage? Please limit your response to a single digit number." });
+        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "6" });
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = "If there is already an O on 5 and 2 and an X on 9 and 1. where would you place the next O to win or gain the advantage? Please limit your response to a single digit number." });
         options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "7" });
+        options.Messages.Add(new ChatMessage() { Role = "user", Content = "If there is already an O on 1 and 2 and an X on 5 and 7.  where would you place the next O to win or gain the advantage? Please limit your response to a single digit number." });
+        options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "3" });
 
         //prompt with called numbers
 
@@ -952,7 +1014,7 @@
                 {
                     called_nums_propmt += $"{num} ";
                 }
-               
+
             }
             //player numbers called
             called_nums_propmt += " and an X on ";
@@ -971,7 +1033,15 @@
         }
         else
         {
-            called_nums_propmt += "You have not called any numbers yet. Where would you put your first O? Please limit your response to a single digit number.";
+            //player numbers called
+            if (player_called_nums.Count >= 1)
+            {
+                called_nums_propmt += $"So far only one X is on the board on {player_called_nums[0].ToString()}. Where would you put your first O? Please limit your response to a single digit number.";
+            }
+            else
+            {
+                called_nums_propmt += "Nothing on the board yet. Where would you put your first O? Please limit your response to a single digit number.";
+            }
         }
 
         options.Messages.Add(new ChatMessage() { Role = "user", Content = called_nums_propmt });

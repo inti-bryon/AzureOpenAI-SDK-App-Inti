@@ -38,6 +38,7 @@
 <div class="card">
     <div class="card-header" style="background-color:#BBDDE6;">
         <h1 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="card-title">Tic Tac Toe</h1>
+        <h4 style="text-align:center;color:slategrey;font-family:'Comic Sans MS';font-weight:bold;" class="card-title">Play Tic Tac Toe Against Azure OpenAI </h4>
     </div>
     <div class="card-body" style="background-color:#D3E8ED; font-family:'Comic Sans MS'; color:darkslateblue">
         <div class="row">
@@ -54,8 +55,8 @@
             </select>
 
         </div>
-        <div class="row">
-            <label style="width:30%; text-align:right; color:red; font-size:small; font-weight:bold; font-style:italic; ">@game_warning</label>
+        <div class="row" style="background-color:#BBDDE6; text-align:center;">
+            <label style="width:50%; text-align:right; color:red; font-size:x-large; font-weight:bold; font-style:italic; ">@game_warning</label>
         </div>
     </div>
     <div class="card-footer" style="background-color:#D3E8ED;">
@@ -133,7 +134,7 @@
     private int player_score = 0;
     private int cpu_score = 0;
     private string game_warning { get; set; } = string.Empty;
-    private char ai_random_num { get; set; } = '0';
+    private int ai_random_num { get; set; } = '0';
     private string display_prompt { get; set; } = string.Empty;
     private string prompt_engineering_section { get; set; } = "visually-hidden";
 
@@ -276,6 +277,7 @@
         player_score = 0;
         cpu_score = 0;
         display_prompt = string.Empty;
+        game_warning = string.Empty;
     }
 
     public bool CheckWin(char[,] a_game)
@@ -336,11 +338,11 @@
         return is_tie;
     }
 
-    public void ComputerTurn(char a_num)
+    public void ComputerTurn(int a_num)
     {
         switch (a_num)
         {
-            case '1':
+            case 1:
                 {
                     //player 2
                     called_nums.Add(1);
@@ -359,7 +361,7 @@
                     }
                 }
                 break;
-            case '2':
+            case 2:
                 {
                     //player 2
                     called_nums.Add(2);
@@ -378,7 +380,7 @@
                     }
                 }
                 break;
-            case '3':
+            case 3:
                 {
                     //player 2
                     called_nums.Add(3);
@@ -397,7 +399,7 @@
                     }
                 }
                 break;
-            case '4':
+            case 4:
                 {
                     //player 2
                     called_nums.Add(4);
@@ -416,7 +418,7 @@
                     }
                 }
                 break;
-            case '5':
+            case 5:
                 {
                     //player 2
                     called_nums.Add(5);
@@ -435,7 +437,7 @@
                     }
                 }
                 break;
-            case '6':
+            case 6:
                 {
                     //player 2
                     called_nums.Add(6);
@@ -455,7 +457,7 @@
                     }
                 }
                 break;
-            case '7':
+            case 7:
                 {
                     //player 2
                     called_nums.Add(7);
@@ -474,7 +476,7 @@
                     }
                 }
                 break;
-            case '8':
+            case 8:
                 {
                     //player 2
                     called_nums.Add(8);
@@ -493,7 +495,7 @@
                     }
                 }
                 break;
-            case '9':
+            case 9:
                 {
                     //player 2
                     called_nums.Add(9);
@@ -879,8 +881,6 @@
 
     #endregion
 
-
-
     #region Azure OpenAI Methods
 
     private void ClearMessages()
@@ -990,9 +990,9 @@
 
         //get answer and parse to char
         //check answer to make sure it is a single digit number between 1 and 9
-        if(char.TryParse(completions.Choices[0].Message.Content.ToString(), out char result))
+        if(int.TryParse(completions.Choices[0].Message.Content.ToString(), out int result))
         {
-            if (result == '1' || result == '2' || result == '3' || result == '4' || result == '5' || result == '6' || result == '7' || result == '8' || result == '9')
+            if (result == 1 || result == 2 || result == 3 || result == 4 || result == 5 || result == 6 || result == 7 || result == 8 || result == 9)
             {
                 ai_random_num = result;
                 display_prompt += $"\nAI: {ai_random_num}\n";

@@ -103,21 +103,21 @@
     //class variables
     OpenAIClient client;
     private ChatMessage current_msgs { get; set; } = new ChatMessage();
+
     // Set the options for the chat completion
     private ChatCompletionsOptions options = new ChatCompletionsOptions();
 
-    //defaults
+    //defaults for Azure OpenAI
     private string current_model { get; set; } = AzureOpenAIGPTModel;
     private float in_temperature { get; set; } = 0.1f;
     private int in_max_tokens { get; set; } = 1000;
     private float in_NucleusSamplingFactor { get; set; } = 0.95f;
 
-
-    //private string happy_face_image { get; set; } = "https://purepng.com/public/uploads/large/31508450200spcaug8c6yrcwtjumebwrisfwkm9zqccww9g4pndyh5ddsgiydsvillhoab2tvpio1ounuvblikb6jzlqflr5fdrnay3p2w7r5e2.png";
+    //button image links
     private string x_image { get; set; } = "https://th.bing.com/th/id/R.7f2eabac248cd655d617a0f00c011fe6?rik=WlG%2bMNK%2fAEELVA&pid=ImgRaw&r=0";
     private string o_image { get; set; } = "https://pngimg.com/uploads/letter_o/letter_o_PNG39.png";
 
-    //ttt specific variable
+    //TTT specific variable
     private string player_name { get; set; } = string.Empty;
     private string game_dificulty { get; set; } = "Easy";
     private bool player_turn1 = true;

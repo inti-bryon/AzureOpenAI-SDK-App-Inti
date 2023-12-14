@@ -88,6 +88,15 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-header" style="background-color:lightgray">
+        <h3 style="text-align:center;color:blue;font-family:'Comic Sans MS'; font-size:x-large;" class="@MainBoardClass">Prompt Engineering</h3>
+    </div>
+    <div class="card-body" style="background-color:lightslategrey">
+        <textarea style="width:100%; height:500px; text-align:left;color:darkslategray;font-family:'Comic Sans MS'; font-size:large;" class="@MainBoardClass">@display_prompt</textarea>
+    </div>
+</div>
+
 @code {
     #region Variables and Defaults
 
@@ -122,6 +131,7 @@
     private int cpu_score = 0;
     private string game_warning { get; set; } = string.Empty;
     private char ai_random_num { get; set; } = '0';
+    private string display_prompt { get; set; } = string.Empty;
 
     //for 9 buttons
     private string Grid1 { get; set; } = string.Empty;
@@ -805,25 +815,30 @@
 
     #region Azure OpenAI Methods
 
+    private void ClearMessages()
+    {
+        options.Messages.Clear();
+    }
+
     public async Task GetNumberFromAI()
     {
         // Set the prompt using OpenAI
-
+        ClearMessages();
         //get the difficulty level
-        string system_prompt = "You are a tic tac toe player using a regular 3x3 grid, numbered 1 through 9.";
+        string system_prompt = "You are a tic tac toe player using a regular 3x3 grid, numbered 1 through 9 where. You are using O and your opponent is using X.";
         switch(game_dificulty)
         {
             case "Easy":
-                system_prompt += $"You are an easy going player, who let's everyone win."; 
+                system_prompt += $"You are an easy going player who let's everyone win."; 
                 break;
             case "Normal":
                 system_prompt += $"You are an average player. You will try to match three consecutive O in a row and win.";
                 break;
             case "Hard":
-                system_prompt += $"You are a tough, aggressive, professional player. Analyze the current position of X and try to block them from winning. Look carefully at the current positions of the Os and try to connect 3 for the win.";
+                system_prompt += $"You are a tough aggressive professional player. Analyze the current position of X and try to block them from winning. Look carefully at the current positions of the Os and try to connect 3 for the win.";
                 break;
             default:
-                system_prompt += $"You are an easy going player, who let's everyone win.";
+                system_prompt += $"You are an easy going player who let's everyone win.";
                 break;
         }
 
@@ -838,33 +853,64 @@
         options.Messages.Add(new ChatMessage() { Role = "assistant", Content = "7" });
 
         //prompt with called numbers
-        string called_nums_propmt = "I have already called the following numbers: ";
+        string called_nums_propmt = "I already have an X on ";
         foreach (int num in player_called_nums)
         {
-            called_nums_propmt += $"{num}, ";
+            called_nums_propmt += $"{num} and ";
         }
         if (cpu_called_nums.Count > 0)
         {
-            called_nums_propmt += "and you have already called: ";
+            called_nums_propmt += " You have an O on ";
             foreach (int num in cpu_called_nums)
             {
-                called_nums_propmt += $"{num}, ";
+                called_nums_propmt += $"{num} and ";
             }
-            called_nums_propmt += " Where would you put your next O?";
+            called_nums_propmt += " Where would you put your next O to win the game or to block the X player from winning given the previous plays by X and O?";
         }
         else
         {
-            called_nums_propmt += "and you have not called any numbers yet. Where would you put your first O?";
+            called_nums_propmt += " you have not called any numbers yet. Where would you put your first O?";
         }
 
         options.Messages.Add(new ChatMessage() { Role = "user", Content = called_nums_propmt });
 
+        //print out all the prompt messages
+        display_prompt = string.Empty;
+        foreach (ChatMessage msg in options.Messages)
+        {
+            display_prompt += $"{msg.Role}: {msg.Content}\n";
+        }
+
+        //call the Azure OpenAI SDK
         client = new OpenAIClient(new Uri(AzureOpenAIUrlGPT), new AzureKeyCredential(SecretKeyGPT));
         var response = await client.GetChatCompletionsAsync(current_model, options);
         ChatCompletions completions = response.Value;
 
         //get answer and parse to char
-        ai_random_num = char.Parse(completions.Choices[0].Message.Content.ToString());
+        //check answer to make sure it is a single digit number between 1 and 9
+        if(char.TryParse(completions.Choices[0].Message.Content.ToString(), out char result))
+        {
+            if (result == '1' || result == '2' || result == '3' || result == '4' || result == '5' || result == '6' || result == '7' || result == '8' || result == '9')
+            {
+                ai_random_num = result;
+                display_prompt += $"\nAI: {ai_random_num}\n";
+            }
+            else
+            {
+                //get another number
+                await GetNumberFromAI();
+                display_prompt += $"\nAI: {completions.Choices[0].Message.Content}\n";
+            }
+        }
+        else
+        {
+            //get another number
+            await GetNumberFromAI();
+            display_prompt += $"\nAI: {completions.Choices[0].Message.Content}\n";
+        }
+
+
+        //ai_random_num = char.Parse(completions.Choices[0].Message.Content.ToString());
     }
     
     #endregion

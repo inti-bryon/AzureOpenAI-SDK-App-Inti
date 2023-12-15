@@ -28,9 +28,10 @@
 
 <div class="card" style="background-color:aliceblue; margin:5px;">
     <div class="card-header" style="text-align:left; background-color:lightsteelblue">
-        <label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">Prompt Engineering Section (Optional)</label>
+        @*<label style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';">Prompt Engineering Section </label>*@
+        <button style="font-size:large;color:white;font-weight:bold; font-family:'Comic Sans MS';" class="btn btn-link" @onclick=TogglePromptDisplay>Prompt Engineering Section (Optional)</button>
     </div>
-    <div class="card-body" style="text-align:left;">
+    <div class="card-body @prmpt_display_button" style="text-align:left;">
         <div class="card-title"><label style="font-family:'Comic Sans MS'; color:blue;font-size:large">Add a role...</label></div>
         <select @onchange="MsgRoleChanged" style="width:80%; height:40px;">
             <option value="none"></option>
@@ -47,7 +48,7 @@
         <button class="btn btn-warning" @onclick="ClearQuestion">Clear Question</button>
         <button class="btn btn-warning" @onclick="ClearAll">Clear All</button>
     </div>
-    <div class="card-header" style="text-align:left;">
+    <div class="card-header @prmpt_display_button" style="text-align:left;">
         <textarea readonly="readonly" type="text" @bind="current_msgs_string" style="width:80%" />
         <div class="table-bordered">
             <div>
@@ -103,6 +104,7 @@
     private string in_user_question { get; set; } = string.Empty;
     //
     private List<ChatMessage> all_system_prompts { get; set; } = new List<ChatMessage>();
+    private string prmpt_display_button { get; set; } = "visually-hidden";
 
 
     //defaults
@@ -176,6 +178,19 @@
         if (e.Value.ToString() != "none")
         {
             msg_role = e.Value.ToString();
+        }
+    }
+
+    private void TogglePromptDisplay()
+    {
+        //toggle the display of the prompt
+        if (prmpt_display_button == "visually-hidden")
+        {
+            prmpt_display_button = string.Empty;
+        }
+        else
+        {
+            prmpt_display_button = "visually-hidden";
         }
     }
 
